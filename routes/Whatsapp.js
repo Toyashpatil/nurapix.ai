@@ -45,13 +45,16 @@ const { MessagingResponse } = require('twilio').twiml;
 const router = express.Router();
 
 // Your ngrok URL from Colab
-const COLAB_FLASK_URL = 'https://05bd-34-124-179-92.ngrok-free.app'; // 🔁 Replace
+const COLAB_FLASK_URL = 'https://8bc6-34-124-179-92.ngrok-free.app'; 
 
 // Your imgbb API Key (get free from https://api.imgbb.com)
-const IMGBB_API_KEY = 'e79bc1f402c834dc0efe08e62e6cd933'; // 🔁 Replace
+const IMGBB_API_KEY = 'e79bc1f402c834dc0efe08e62e6cd933'; 
 
 router.post('/incoming', async (req, res) => {
-  const userPrompt = req.body.Body?.trim();
+  // const userPrompt = req.body.Body?.trim();
+  const userPrompt = req.body.prompt;
+  
+
   console.log('📩 Prompt from WhatsApp:', userPrompt);
 
   const twiml = new MessagingResponse();
@@ -65,6 +68,7 @@ router.post('/incoming', async (req, res) => {
     );
 
     const imageBuffer = Buffer.from(imageResponse.data, 'binary');
+    console.log(imageBuffer)
 
     // 2. Upload to imgbb
     const form = new FormData();
@@ -77,11 +81,12 @@ router.post('/incoming', async (req, res) => {
     );
 
     const imageUrl = uploadRes.data.data.url;
+    console.log(imageUrl)
 
     // 3. Send WhatsApp reply with media
-    const message = twiml.message();
+    // const message = twiml.message();
     message.body(`Here's your generated image for: "${userPrompt}"`);
-    message.media(imageUrl);
+    // message.media(imageUrl);
 
     res.writeHead(200, { 'Content-Type': 'text/xml' });
     res.end(twiml.toString());
