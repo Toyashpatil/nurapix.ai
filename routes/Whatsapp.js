@@ -1,27 +1,40 @@
 const express = require('express');
-const router = express.Router();
+const axios = require('axios');
 const { MessagingResponse } = require('twilio').twiml;
+const router = express.Router();
 
+// Replace with your ngrok public URL
+const COLAB_FLASK_URL = 'https://3cb6-34-169-149-135.ngrok-free.app/generate'; // ⬅️ Replace this
 
-router.get('/checkHealth', (req, res) => {
-  res.json({
-    message: "Health ok"
-  });
-});
+router.post('/incoming', async (req, res) => {
+  const userPrompt = req.body.Body?.trim();
+  console.log('Received prompt from WhatsApp:', userPrompt);
 
-
-router.post('/incoming', (req, res) => {
   const twiml = new MessagingResponse();
 
-  
-  const userMessage = req.body.Body;
-  console.log('User said:', userMessage);
+  try {
+    // Make POST request to your Colab Flask server
+    const imageResponse = await axios.post(
+      `${COLAB_FLASK_URL}/generate`,
+      { prompt: userPrompt },
+      { responseType: 'arraybuffer' } // Important for binary image
+    );
 
- 
-  twiml.message('Hello from Nurapix');
+    const base64Image = Buffer.from(imageResponse.data, 'binary').toString('base64');
 
-  res.writeHead(200, { 'Content-Type': 'text/xml' });
-  res.end(twiml.toString());
+    // Send image back as media message via Twilio
+    const message = twiml.message();
+    message.body(`Here's your image for: "${userPrompt}"`);
+    message.media(`data:image/png;base64,${base64Image}`);
+
+    res.writeHead(200, { 'Content-Type': 'text/xml' });
+    res.end(twiml.toString());
+  } catch (error) {
+    console.error('Error generating image:', error.message);
+    twiml.message('Oops! Something went wrong generating your image.');
+    res.writeHead(200, { 'Content-Type': 'text/xml' });
+    res.end(twiml.toString());
+  }
 });
 
 module.exports = router;
