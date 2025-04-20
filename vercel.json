@@ -7,12 +7,12 @@
       {
         "src": "/whatsapp",
         "methods": ["POST"],
-        "dest": "api/index.js"
+        "dest": "index.js"
       },
       {
         "src": "/",
         "methods": ["GET"],
-        "dest": "api/index.js"
+        "dest": "index.js"
       }
     ]
   }
