@@ -38,8 +38,6 @@
 // });
 
 // module.exports = router;
-
-
 const express = require('express');
 const axios = require('axios');
 const FormData = require('form-data');
@@ -47,7 +45,7 @@ const { MessagingResponse } = require('twilio').twiml;
 const router = express.Router();
 
 // Your ngrok URL from Colab
-const COLAB_FLASK_URL = 'https://05bd-34-124-179-92.ngrok-free.app/'; // 🔁 Replace
+const COLAB_FLASK_URL = 'https://05bd-34-124-179-92.ngrok-free.app'; // 🔁 Replace
 
 // Your imgbb API Key (get free from https://api.imgbb.com)
 const IMGBB_API_KEY = 'e79bc1f402c834dc0efe08e62e6cd933'; // 🔁 Replace
