@@ -84,7 +84,7 @@ router.post('/incoming', async (req, res) => {
     console.log(imageUrl)
 
     // 3. Send WhatsApp reply with media
-    // const message = twiml.message();
+    const message = twiml.message();
     message.body(`Here's your generated image for: "${userPrompt}"`);
     // message.media(imageUrl);
 
