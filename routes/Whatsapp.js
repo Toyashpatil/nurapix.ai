@@ -51,8 +51,8 @@ const COLAB_FLASK_URL = 'https://8bc6-34-124-179-92.ngrok-free.app';
 const IMGBB_API_KEY = 'e79bc1f402c834dc0efe08e62e6cd933'; 
 
 router.post('/incoming', async (req, res) => {
-  // const userPrompt = req.body.Body?.trim();
-  const userPrompt = req.body.prompt;
+  const userPrompt = req.body.Body?.trim();
+  // const userPrompt = req.body.prompt;
   
 
   console.log('📩 Prompt from WhatsApp:', userPrompt);
