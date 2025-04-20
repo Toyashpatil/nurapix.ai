@@ -1,13 +1,15 @@
 {
     "version": 2,
     "builds": [
-      { "src": "api/whatsapp.js", "use": "@vercel/node" }
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
       {
-        "src": "/whatsapp",
-        "methods": ["POST"],
-        "dest": "api/whatsapp.js"
+        "src": "/(.*)",
+        "dest": "index.js"
       }
     ]
   }
