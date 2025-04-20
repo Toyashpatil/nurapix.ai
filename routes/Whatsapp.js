@@ -4,7 +4,7 @@ const { MessagingResponse } = require('twilio').twiml;
 const router = express.Router();
 
 // Replace with your ngrok public URL
-const COLAB_FLASK_URL = 'https://3cb6-34-169-149-135.ngrok-free.app/generate'; // ⬅️ Replace this
+const COLAB_FLASK_URL = 'https://3cb6-34-169-149-135.ngrok-free.app/'; // ⬅️ Replace this
 
 router.post('/incoming', async (req, res) => {
   const userPrompt = req.body.Body?.trim();
