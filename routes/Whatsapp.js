@@ -45,7 +45,7 @@ const { MessagingResponse } = require('twilio').twiml;
 const router = express.Router();
 
 // Your ngrok URL from Colab
-const COLAB_FLASK_URL = 'https://8bc6-34-124-179-92.ngrok-free.app'; 
+const COLAB_FLASK_URL = 'https://04e8-34-83-99-82.ngrok-free.app'; 
 
 // Your imgbb API Key (get free from https://api.imgbb.com)
 const IMGBB_API_KEY = 'e79bc1f402c834dc0efe08e62e6cd933'; 
